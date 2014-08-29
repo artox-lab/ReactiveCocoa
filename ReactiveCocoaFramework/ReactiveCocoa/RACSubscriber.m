@@ -8,7 +8,7 @@
 
 #import "RACSubscriber.h"
 #import "RACSubscriber+Private.h"
-#import "EXTScope.h"
+#import "RACEXTScope.h"
 #import "RACCompoundDisposable.h"
 
 @interface RACSubscriber ()
@@ -94,15 +94,8 @@
 	}
 }
 
-- (void)didSubscribeWithDisposable:(RACCompoundDisposable *)d {
-	if (d.disposed) return;
+- (void)didSubscribeWithDisposable:(RACDisposable *)d {
 	[self.disposable addDisposable:d];
-
-	@weakify(self, d);
-	[d addDisposable:[RACDisposable disposableWithBlock:^{
-		@strongify(self, d);
-		[self.disposable removeDisposable:d];
-	}]];
 }
 
 @end

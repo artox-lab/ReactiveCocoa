@@ -170,15 +170,16 @@
 - (instancetype)take:(NSUInteger)count {
 	Class class = self.class;
 	
-	if (count == 0) return class.empty;
-
 	return [[self bind:^{
 		__block NSUInteger taken = 0;
 
 		return ^ id (id value, BOOL *stop) {
+			RACStream *result = class.empty;
+
+			if (taken < count) result = [class return:value];
 			if (++taken >= count) *stop = YES;
 
-			return [class return:value];
+			return result;
 		};
 	}] setNameWithFormat:@"[%@] -take: %lu", self.name, (unsigned long)count];
 }
@@ -249,31 +250,19 @@
 	return [result setNameWithFormat:@"+concat: %@", streams];
 }
 
-- (instancetype)scanWithStart:(id)startingValue reduce:(id (^)(id running, id next))reduceBlock {
-	NSCParameterAssert(reduceBlock != nil);
-
-	return [[self
-		scanWithStart:startingValue
-		reduceWithIndex:^(id running, id next, NSUInteger index) {
-			return reduceBlock(running, next);
-		}]
-		setNameWithFormat:@"[%@] -scanWithStart: %@ reduce:", self.name, [startingValue rac_description]];
-}
-
-- (instancetype)scanWithStart:(id)startingValue reduceWithIndex:(id (^)(id, id, NSUInteger))reduceBlock {
-	NSCParameterAssert(reduceBlock != nil);
+- (instancetype)scanWithStart:(id)startingValue reduce:(id (^)(id running, id next))block {
+	NSCParameterAssert(block != nil);
 
 	Class class = self.class;
-
+	
 	return [[self bind:^{
 		__block id running = startingValue;
-		__block NSUInteger index = 0;
 
 		return ^(id value, BOOL *stop) {
-			running = reduceBlock(running, value, index++);
+			running = block(running, value);
 			return [class return:running];
 		};
-	}] setNameWithFormat:@"[%@] -scanWithStart: %@ reduceWithIndex:", self.name, [startingValue rac_description]];
+	}] setNameWithFormat:@"[%@] -scanWithStart: %@ reduce:", self.name, [startingValue rac_description]];
 }
 
 - (instancetype)takeUntilBlock:(BOOL (^)(id x))predicate {

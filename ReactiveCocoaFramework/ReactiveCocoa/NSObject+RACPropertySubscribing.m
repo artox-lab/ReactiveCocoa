@@ -7,7 +7,7 @@
 //
 
 #import "NSObject+RACPropertySubscribing.h"
-#import "EXTScope.h"
+#import "RACEXTScope.h"
 #import "NSObject+RACDeallocating.h"
 #import "NSObject+RACDescription.h"
 #import "NSObject+RACKVOWrapper.h"
@@ -24,9 +24,8 @@
 - (RACSignal *)rac_valuesForKeyPath:(NSString *)keyPath observer:(NSObject *)observer {
 	return [[[self
 		rac_valuesAndChangesForKeyPath:keyPath options:NSKeyValueObservingOptionInitial observer:observer]
-		map:^(RACTuple *value) {
-			// -map: because it doesn't require the block trampoline that -reduceEach: uses
-			return value[0];
+		reduceEach:^(id value, NSDictionary *change) {
+			return value;
 		}]
 		setNameWithFormat:@"RACObserve(%@, %@)", self.rac_description, keyPath];
 }
@@ -76,7 +75,7 @@
 				return nil;
 			}
 
-			return [self rac_observeKeyPath:keyPath options:options observer:observer block:^(id value, NSDictionary *change, BOOL causedByDealloc, BOOL affectedOnlyLastComponent) {
+			return [self rac_observeKeyPath:keyPath options:options observer:observer block:^(id value, NSDictionary *change) {
 				[subscriber sendNext:RACTuplePack(value, change)];
 			}];
 		}]

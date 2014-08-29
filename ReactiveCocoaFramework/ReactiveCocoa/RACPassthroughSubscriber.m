@@ -94,7 +94,7 @@ static const char *cleanedSignalDescription(RACSignal *signal) {
 	[self.innerSubscriber sendCompleted];
 }
 
-- (void)didSubscribeWithDisposable:(RACCompoundDisposable *)disposable {
+- (void)didSubscribeWithDisposable:(RACDisposable *)disposable {
 	if (disposable != self.disposable) {
 		[self.disposable addDisposable:disposable];
 	}

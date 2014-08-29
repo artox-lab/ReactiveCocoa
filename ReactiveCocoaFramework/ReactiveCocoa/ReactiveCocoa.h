@@ -6,8 +6,7 @@
 //  Copyright (c) 2012 GitHub, Inc. All rights reserved.
 //
 
-#import "EXTKeyPathCoding.h"
-#import "EXTScope.h"
+#import "RACEXTKeyPathCoding.h"
 #import "NSArray+RACSequenceAdditions.h"
 #import "NSData+RACSupport.h"
 #import "NSDictionary+RACSequenceAdditions.h"
@@ -60,8 +59,6 @@
 	#import "UIControl+RACSignalSupport.h"
 	#import "UIDatePicker+RACSignalSupport.h"
 	#import "UIGestureRecognizer+RACSignalSupport.h"
-	#import "UIImagePickerController+RACSignalSupport.h"
-	#import "UIRefreshControl+RACCommandSupport.h"
 	#import "UISegmentedControl+RACSignalSupport.h"
 	#import "UISlider+RACSignalSupport.h"
 	#import "UIStepper+RACSignalSupport.h"

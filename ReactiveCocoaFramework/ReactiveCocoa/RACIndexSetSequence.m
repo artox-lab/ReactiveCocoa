@@ -30,9 +30,6 @@
 
 + (instancetype)sequenceWithIndexSet:(NSIndexSet *)indexSet {
 	NSUInteger count = indexSet.count;
-	
-	if (count == 0) return self.empty;
-	
 	NSUInteger sizeInBytes = sizeof(NSUInteger) * count;
 
 	NSMutableData *data = [[NSMutableData alloc] initWithCapacity:sizeInBytes];

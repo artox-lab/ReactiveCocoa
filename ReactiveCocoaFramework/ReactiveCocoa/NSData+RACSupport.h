@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@class RACScheduler;
 @class RACSignal;
+@class RACScheduler;
 
 @interface NSData (RACSupport)
 

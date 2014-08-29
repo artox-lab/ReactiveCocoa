@@ -7,12 +7,12 @@
 //
 
 #import "UITextView+RACSignalSupport.h"
-#import "EXTScope.h"
+#import "RACEXTScope.h"
 #import "NSObject+RACDeallocating.h"
-#import "NSObject+RACDescription.h"
 #import "RACDelegateProxy.h"
 #import "RACSignal+Operations.h"
 #import "RACTuple.h"
+#import "NSObject+RACDescription.h"
 #import <objc/runtime.h>
 
 @implementation UITextView (RACSignalSupport)

@@ -1,6 +1,6 @@
 //
 //  UIGestureRecognizer+RACSignalSupport.h
-//  ReactiveCocoa
+//  Talks
 //
 //  Created by Josh Vera on 5/5/13.
 //  Copyright (c) 2013 GitHub. All rights reserved.

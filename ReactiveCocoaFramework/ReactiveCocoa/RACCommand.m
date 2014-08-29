@@ -7,7 +7,7 @@
 //
 
 #import "RACCommand.h"
-#import "EXTScope.h"
+#import "RACEXTScope.h"
 #import "NSArray+RACSequenceAdditions.h"
 #import "NSObject+RACDeallocating.h"
 #import "NSObject+RACDescription.h"
@@ -16,6 +16,7 @@
 #import "RACReplaySubject.h"
 #import "RACScheduler.h"
 #import "RACSequence.h"
+#import "RACSerialDisposable.h"
 #import "RACSignal+Operations.h"
 #import <libkern/OSAtomic.h>
 
